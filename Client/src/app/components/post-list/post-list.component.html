@@ -1,0 +1,28 @@
+<div class="alert alert-danger" role="alert" style="text-align: center"
+     *ngIf="youAreBlocked">
+  You are blocked by this user.
+</div>
+<div class="alert alert-danger" role="alert" style="text-align: center"
+     *ngIf="isBlocked && !youAreBlocked">
+  This account is blocked.
+</div>
+<div *ngIf="!isBlocked && !youAreBlocked">
+  <div class="card" *ngFor="let p of posts">
+    <div class="card-body">
+      {{p.content.text}}
+      <div [hidden]="!isOwnProfile" style="float: right">
+        <button type="button" class="btn-dark rounded" (click)="clickDeletePost(p.id)">
+          X
+        </button>
+      </div>
+    </div>
+    <div class="card-footer text-muted">
+    <span>
+      {{p.stringTime}}
+    </span>
+      <span class="float-end">
+      {{p.content.location}}
+    </span>
+    </div>
+  </div>
+</div>

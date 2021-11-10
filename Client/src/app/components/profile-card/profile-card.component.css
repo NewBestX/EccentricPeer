@@ -1,0 +1,17 @@
+.profile-picture-wrapper {
+  text-align: center;
+  padding: 5px;
+}
+
+.profile-picture {
+  display: inline-block;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border-color: rgba(70, 71, 78, 0.28);
+  border-style: solid;
+
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}

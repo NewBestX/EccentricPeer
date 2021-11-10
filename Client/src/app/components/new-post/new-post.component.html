@@ -1,0 +1,21 @@
+<ng-template #newPostModal>
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="staticBackdropLabel">Create new post</h5>
+    </div>
+    <form #f="ngForm" (ngSubmit)="clickPost(f.value)">
+      <div class="modal-body">
+        <textarea class="form-control" id="text" name="text" ngModel required style="height: 200px"></textarea>
+        <br>
+        <input type="text" class="form-control" id="location" name="location" ngModel placeholder="Optional: location">
+      </div>
+      <div class="alert alert-danger" role="alert" style="margin: 10px; text-align: center"
+           [hidden]="!showError">
+        Failed to create new post! Please try again
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" [disabled]="f.invalid">Post</button>
+      </div>
+    </form>
+  </div>
+</ng-template>

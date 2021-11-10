@@ -1,0 +1,21 @@
+<div class="card">
+  <div class="profile-picture-wrapper">
+    <img class="profile-picture" [src]="picture" alt=""/>
+  </div>
+  <div class="card-body" style="text-align: center">
+    <h5 class="card-title">{{username}}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">{{description}}</h6>
+    <p class="card-text" *ngIf="!!birthdayDay" style="margin-top: 10px">{{birthdayDay}}/{{birthdayMonth}}/{{birthdayYear}}</p>
+    <p class="card-text" *ngIf="!!location">{{location}}</p>
+    <div class="card" style="margin-top: 10px">
+      <div class="card-header">
+        <h6>Following ({{!!friends ? friends.length : 0}})</h6>
+      </div>
+      <ul class="list-group list-group-flush" style="max-height: 700px; overflow: auto;">
+        <li class="list-group-item" *ngFor="let f of friends" (click)="profileClick(f.username)" style="cursor: pointer">
+          <h6 class="text-muted">{{f.username}}</h6>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

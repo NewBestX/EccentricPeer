@@ -1,0 +1,74 @@
+<app-login *ngIf="!isLoggedIn" (authFinishedEvent)="finishedLogin($event)"></app-login>
+<app-edit-profile *ngIf="clickedEditProfile" (closeEditModalEvent)="closedEditProfile($event)"></app-edit-profile>
+<app-new-post *ngIf="clickedNewPost" (closePostModalEvent)="closedNewPost($event)"></app-new-post>
+
+<div class="container mySpacing" *ngIf="isLoggedIn">
+  <div class="row rowPadding card sideMargin" style="background-color: rgba(0,21,255,0.6)">
+    <div class="container">
+      <div class="row">
+        <div class="col-1" style="text-align: center; color: #cfefff; margin: auto; cursor: pointer"
+             (click)="clickHome()">
+          <h6>Eccentric Peer</h6>
+        </div>
+        <div class="col-6">
+          <form #f="ngForm" (ngSubmit)="clickSearch(f.value)">
+            <div class="card container" style="padding: 1px; background-color: #cfefff;">
+              <div class="row">
+                <div class="col-8">
+                  <input type="text" class="form-control" id="searchProfile" name="searchProfile" ngModel required
+                         placeholder="Search user..."
+                         style="background-color: transparent; border: none; width: 100%">
+                </div>
+                <div class="col-4">
+                  <button type="submit" class="btn btn-secondary" style="width: 100%">
+                    Search
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="col-1">
+
+        </div>
+        <div class="col-2" style="margin: auto; text-align: center">
+          <button type="button" class="btn btn-success" (click)="clickFollow()"
+                  style="width: 90%; border: solid #3d3d3d;" [hidden]="isOwnProfile">
+            <span *ngIf="isFollowed"><strong>Following</strong></span>
+            <span *ngIf="!isFollowed">Follow</span>
+          </button>
+        </div>
+        <div class="col-2" style="margin: auto; text-align: center">
+          <button type="button" class="btn btn-dark" (click)="clickBlock()" style="width: 90%"
+                  [hidden]="isOwnProfile">
+            <span *ngIf="isBlocked"><strong>Blocked</strong></span>
+            <span *ngIf="!isBlocked">Block</span>
+          </button>
+          <button type="button" class="btn btn-dark" (click)="clickEditProfile()" style="width: 90%"
+                  [hidden]="!isOwnProfile">
+            Edit profile
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row rowPadding sideMargin alert alert-danger" *ngIf="!!recoveryKeySeed" style="margin-top: 10px">
+    <p>Welcome to EccentricPeer! The following code is a secret key that you can use to recover your account in case you
+      forget your password. Please copy and store it somewhere safe, as it is only available during this session!</p>
+    <input type="text" [value]="recoveryKeySeed" readonly>
+  </div>
+  <div class="row rowPadding">
+    <div class="col-4">
+      <app-profile-card [events]="reloadEvent.asObservable()" (clickedProfileInListEvent)="reloadProfile()"></app-profile-card>
+    </div>
+    <div class="col-8">
+      <div [hidden]="!isOwnProfile" style="text-align: center">
+        <button type="button" class="btn btn-success" (click)="clickNewPost()"
+                style="width: 70%; margin-bottom: 10px">
+          New post
+        </button>
+      </div>
+      <app-post-list [events]="reloadEvent.asObservable()"></app-post-list>
+    </div>
+  </div>
+</div>
