@@ -1,0 +1,81 @@
+<ng-template #editProfileModal>
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="staticBackdropLabel">Edit profile</h5>
+    </div>
+    <form #f="ngForm" (ngSubmit)="clickSubmit(f.value)">
+      <div class="modal-body">
+        <label for="description" class="form-label">Description</label>
+        <input type="text" class="form-control" id="description" name="description" [(ngModel)]="currentDescription">
+        <br>
+        <label class="form-label">Birthday</label>
+        <div class="container">
+          <div class="row">
+            <div class="col-4">
+              <input type="number" class="form-control" id="birthdayDay" name="birthdayDay"
+                     [(ngModel)]="currentBirthdayDay" style="width: 100%" placeholder="Day">
+            </div>
+            <div class="col-4">
+              <input type="number" class="form-control" id="birthdayMonth" name="birthdayMonth"
+                     [(ngModel)]="currentBirthdayMonth" style="width: 100%" placeholder="Month">
+            </div>
+            <div class="col-4">
+              <input type="number" class="form-control" id="birthdayYear" name="birthdayYear"
+                     [(ngModel)]="currentBirthdayYear" style="width: 100%" placeholder="Year">
+            </div>
+          </div>
+        </div>
+        <br>
+        <label for="location" class="form-label">Location</label>
+        <input type="text" class="form-control" id="location" name="location" [(ngModel)]="currentLocation">
+        <br>
+        <label class="form-label">Profile picture</label>
+        <br>
+        <div class="profile-picture-preview-wrapper" *ngIf="!!pictureURL">
+          <h6 class="card-subtitle">Preview</h6>
+          <br>
+          <img [src]="pictureURL" class="profile-picture-preview" style="width: 200px; height: 200px" alt="">
+        </div>
+        <input type='file' (imageSelected)="onSelectFile($event)" [imageToDataUrl]="pictureResizeOptions">
+      </div>
+      <div class="alert alert-danger" role="alert" style="margin: 10px; text-align: center"
+           [hidden]="!showError">
+        Failed to update the profile! Please try again
+      </div>
+      <div class="modal-footer" style="display: block; padding-bottom: 25px">
+        <button type="button" class="btn btn-close" style="width: fit-content" (click)="clickDeleteAccount()">
+          <div style="margin-top: 10px">Delete account</div>
+        </button>
+        <button type="submit" class="btn btn-primary" style="float: right">Submit edits</button>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<!-- Modal -->
+<ng-template #deleteProfileModal>
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">Permanently delete account</h5>
+    </div>
+    <form #f="ngForm" (ngSubmit)="clickConfirmDelete(f.value)">
+      <div class="modal-body">
+        <div class="mb-3">
+          <label for="recoveryKey" class="form-label">Recovery key</label>
+          <textarea class="form-control" id="recoveryKey" name="recoveryKey" ngModel required
+                    style="height: 100px"></textarea>
+        </div>
+      </div>
+      <div class="alert alert-danger" role="alert" style="margin: 10px; text-align: center"
+           [hidden]="!showInvalidDataAlert">
+        Incorrect recovery key!
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-danger"
+                [disabled]="f.invalid">
+          Delete account
+        </button>
+      </div>
+    </form>
+  </div>
+</ng-template>

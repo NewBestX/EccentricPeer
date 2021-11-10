@@ -1,0 +1,9 @@
+{
+  "port": 25015,
+  "db_config": {
+    "host": "localhost",
+    "user": "newbest",
+    "password": "asdasd",
+    "database": "eccentricpeer_db"
+  }
+}
